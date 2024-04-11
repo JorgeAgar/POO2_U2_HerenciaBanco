@@ -24,7 +24,7 @@ public class CurrentAccount extends Account{
      * @param account  cuenta de banco
      */
     public CurrentAccount(int account){
-        this(account , 0);
+        this(account , 1000);
     } 
 
 
@@ -42,9 +42,17 @@ public class CurrentAccount extends Account{
      */
     @Override
     public void withdraw(double sum){
-        if((this.getBalance() - (sum)) >= overdraftLimit*getBalance())
-        super.withdraw(sum);
+        if((this.getBalance() - sum) >= -this.overdraftLimit)
+            super.withdraw(sum);
+
+        else throw new RuntimeException("You've surpassed your overdraft limit!");
     }
+
+    public void setOverdraftLimit(double overdraftLimit) {
+        if ( overdraftLimit < 0) throw new RuntimeException("El sobregiro debe de ser mayor que sero");
+        this.overdraftLimit = overdraftLimit;
+    }
+
     /**
      * se imprime toString
      */
@@ -52,4 +60,7 @@ public class CurrentAccount extends Account{
     public String toString(){
         return "Current " + super.toString();
     }
+
+
+    
 }

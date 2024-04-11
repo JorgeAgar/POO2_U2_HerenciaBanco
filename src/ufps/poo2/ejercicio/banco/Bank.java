@@ -16,7 +16,7 @@ public class Bank {
             case 'A' -> {
                 newAccount = new SavingsAccount(accNumber);
             }
-            case 'B' -> {
+            case 'C' -> {
                 newAccount = new CurrentAccount(accNumber);
             }
             default -> {
@@ -29,52 +29,52 @@ public class Bank {
         accounts.add(newAccount);
     }
 
-    public void payDividend(int accNumber, double amount){
+    public void setAccountInterest(int accNumber, double newInterest){
+        if(this.getAccount(accNumber) instanceof SavingsAccount){
+            SavingsAccount savingsAccount = (SavingsAccount) this.getAccount(accNumber);
+            savingsAccount.setInterest(newInterest);
+        }
+        throw new RuntimeException("Only savings accounts have interest");
+    }
 
+    public void setOverdraftLimit(int accNumber, double newOverdraftLimit){
+        if (this.getAccount(accNumber) instanceof CurrentAccount){
+            CurrentAccount currentAccount = (CurrentAccount) this.getAccount(accNumber);
+            currentAccount.setOverdraftLimit(newOverdraftLimit);  
+        }
+        throw new RuntimeException("Only current accounts have overdraft limits");
     }
 
     public void withdrawAccount(int accNumber, double amount){
-        for (Account account : accounts) {
-            if(account.getAccountNumber() == accNumber){
-                account.withdraw(amount);
-                return;
-            }
-        }
-        throw new RuntimeException("There is no account with that number");
+        this.getAccount(accNumber).withdraw(amount);
     }
 
-    public void depositAccount(int accNumber, double amount){
-        for (Account account : accounts) {
-            if(account.getAccountNumber() == accNumber){
-                account.deposit(accNumber);
-                return;
-            }
-        }
-        throw new RuntimeException("There is no account with that number");
+    public void payDividend(int accNumber, double amount){
+        this.getAccount(accNumber).deposit(amount);
     }
 
-    public double accountBalance(int accNumber){
-        for (Account account : accounts) {
-            if(account.getAccountNumber() == accNumber){
-                return account.getBalance();
-            }
-        }
-        throw new RuntimeException("There is no account with that number");
+    public double getBalance(int accNumber){
+        return this.getAccount(accNumber).getBalance();
     }
 
     public void sendLetterToOverdraftAccounts(){
         for (Account account : accounts) {
             if(!(account instanceof CurrentAccount)) continue;
             CurrentAccount currentAcc = (CurrentAccount) account;
-            if(currentAcc.isOverDraft()){}
+            if(currentAcc.isOverDraft()){
+                System.out.println("Overdraft: " + currentAcc);
+            }
         }
     }
 
     public void closeAccount(int accNumber){
+        this.accounts.remove(getAccount(accNumber));
+    }
+
+    private Account getAccount(int accNum){
         for (int i = 0; i < accounts.size(); i++) {
-            if(accounts.get(i).getAccountNumber() == accNumber){
-                accounts.remove(i);
-                return;
+            if(accounts.get(i).getAccountNumber() == accNum){
+                return accounts.get(i);
             }
         }
         throw new RuntimeException("There is no account with that number");
