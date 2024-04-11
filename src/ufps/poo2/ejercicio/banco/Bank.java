@@ -2,6 +2,11 @@ package ufps.poo2.ejercicio.banco;
 
 import java.util.LinkedList;
 
+/**
+ * Banco que almacena cuentas
+ * @author Gabriel Pinto y Jorge Reyes
+ */
+
 public class Bank {
 
     private LinkedList<Account> accounts;
@@ -10,6 +15,11 @@ public class Bank {
         accounts = new LinkedList<>();
     }
 
+    /**
+     * Se crea un tipo de cuenta
+     * @param accType se establece el tipo de cuenta
+     * @param accNumber número de cuentaa
+     */
     public void openAccount(char accType, int accNumber){
         Account newAccount;
         switch (accType) {
@@ -29,6 +39,11 @@ public class Bank {
         accounts.add(newAccount);
     }
 
+    /**
+     * Se establece el interés de una cuenta de ahorros
+     * @param accNumber el número de una cuenta de ahorros
+     * @param newInterest el nuevo interés de la cuenta de ahorros 
+     */
     public void setAccountInterest(int accNumber, double newInterest){
         if(this.getAccount(accNumber) instanceof SavingsAccount){
             SavingsAccount savingsAccount = (SavingsAccount) this.getAccount(accNumber);
@@ -37,6 +52,11 @@ public class Bank {
         throw new RuntimeException("Only savings accounts have interest");
     }
 
+    /**
+     * se valida que sea de tipo cuenta ahorro y se establece ell límite
+     * @param accNumber número de cuenta
+     * @param newOverdraftLimit límite de sobregiro
+     */
     public void setOverdraftLimit(int accNumber, double newOverdraftLimit){
         if (this.getAccount(accNumber) instanceof CurrentAccount){
             CurrentAccount currentAccount = (CurrentAccount) this.getAccount(accNumber);
@@ -45,18 +65,35 @@ public class Bank {
         throw new RuntimeException("Only current accounts have overdraft limits");
     }
 
+    /**
+     * se retira una cantidad de la cuenta
+     * @param accNumber número de la cuenta 
+     * @param amount monto a reitrar
+     */
     public void withdrawAccount(int accNumber, double amount){
         this.getAccount(accNumber).withdraw(amount);
     }
 
+    /**
+     * Se deposita una cantidad en la cuenta
+     * @param accNumber el número de la cuenta
+     * @param amount la cantidad a ingresar
+     */
     public void payDividend(int accNumber, double amount){
         this.getAccount(accNumber).deposit(amount);
     }
 
+/**
+ * Se devuelve el balance de una cuenta
+ * @param accNumber el número de la cuenta
+ */
     public double getBalance(int accNumber){
         return this.getAccount(accNumber).getBalance();
     }
 
+    /**
+     * Se envía una carta a las cuentas corrientes en sobregiro
+     */
     public void sendLetterToOverdraftAccounts(){
         for (Account account : accounts) {
             if(!(account instanceof CurrentAccount)) continue;
@@ -66,11 +103,20 @@ public class Bank {
             }
         }
     }
-
+    
+    /**
+     * cerrar una cuenta
+     * @param accNumber número de la cuenta
+     */
     public void closeAccount(int accNumber){
         this.accounts.remove(getAccount(accNumber));
     }
-
+    
+     /**
+      * obtener la cuentra
+      * @param accNum número de la cuenta
+      * @return la cuenta
+      */
     private Account getAccount(int accNum){
         for (int i = 0; i < accounts.size(); i++) {
             if(accounts.get(i).getAccountNumber() == accNum){

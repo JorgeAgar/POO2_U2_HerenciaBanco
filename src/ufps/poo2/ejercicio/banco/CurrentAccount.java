@@ -48,6 +48,10 @@ public class CurrentAccount extends Account{
         else throw new RuntimeException("You've surpassed your overdraft limit!");
     }
 
+    /**
+     * Se establece el límite de sobregiro
+     * @param overdraftLimit el nuevo límite de sobregito
+     */
     public void setOverdraftLimit(double overdraftLimit) {
         if ( overdraftLimit < 0) throw new RuntimeException("El sobregiro debe de ser mayor que sero");
         this.overdraftLimit = overdraftLimit;

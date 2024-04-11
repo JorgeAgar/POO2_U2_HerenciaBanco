@@ -40,13 +40,19 @@ public class SavingsAccount extends Account{
         double interes = super.getBalance() * this.interest;
         super.deposit(sum + interes);
     }
-
+    /**
+     * se define el interes de deposito
+     * @param newInterest interes del deposito
+     */
     public void setInterest(double newInterest){
         if(newInterest < 0 || newInterest > 0.3)
             throw new RuntimeException("El interés debe ser un valor entre 0 y 0.3");
         this.interest = newInterest;
     }
 
+    /**
+     * Se imprime toString
+     */
     @Override
     public String toString(){
         return "Savings " + super.toString();
