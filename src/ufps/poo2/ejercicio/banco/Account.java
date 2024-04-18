@@ -1,7 +1,5 @@
 package ufps.poo2.ejercicio.banco;
 
-import java.util.LinkedList;
-
 public class Account {
 
 	private double bal; // The current balance
@@ -55,8 +53,8 @@ public class Account {
 	}
 
 	//Método par el punto 4
-	public void setBalance(double val){
-
+	public final void setBalance(double val){
+		this.bal = val;
 	}
 
 	public final void print() {

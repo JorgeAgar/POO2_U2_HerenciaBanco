@@ -18,6 +18,11 @@ public class MixedAccount extends Account{
         this.interes = interes;
     }
 
+    @Override
+    public void withdraw(double sum){
+        throw new RuntimeException("No puede retirar de una MixedAccount");
+    }
+
     public int getDias() {
         return dias;
     }
@@ -31,5 +36,4 @@ public class MixedAccount extends Account{
         this.interes = interes;
     }
 
-    
 }

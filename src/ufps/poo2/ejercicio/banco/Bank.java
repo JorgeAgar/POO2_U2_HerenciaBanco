@@ -196,7 +196,22 @@ public class Bank {
  * @param accNumber el número de la cuenta
  */
     public double getBalance(int accNumber){
-        return this.getAccount(accNumber).getBalance();
+        Account cuenta = this.getAccount(accNumber);
+
+        if(cuenta instanceof MixedAccount){ //saldo MixedAccount Punto 1.
+            MixedAccount acc = (MixedAccount)cuenta;
+            System.out.println("Días: " + acc.getDias());
+            double saldoTotal = acc.getBalance();
+
+            for (int i = 0; i < acc.getDias(); i++) {
+                saldoTotal += saldoTotal*acc.getInteres();
+            }
+
+            System.out.println("Ganancia: " + (saldoTotal-acc.getBalance()));
+            return saldoTotal;
+        }
+
+        else return cuenta.getBalance();
     }
 
     /**
