@@ -22,7 +22,7 @@ public class Cliente {
         if(a.getCliente() != null && !a.getCliente().equals(this))
             throw new RuntimeException("Esta cuenta ya está asociada a otra persona");
 
-        
+        cuentas.add(a);
     }
 
     public double getSaldo(){

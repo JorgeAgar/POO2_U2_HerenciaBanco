@@ -23,6 +23,19 @@ public class MixedAccount extends Account{
         throw new RuntimeException("No puede retirar de una MixedAccount");
     }
 
+    @Override
+    public double getBalance(){
+        double saldoTotal = super.getBalance();
+        for (int i = 0; i < this.getDias(); i++) {
+            saldoTotal += saldoTotal*this.getInteres();
+        }
+        return saldoTotal;
+    }
+
+    public double getGanancia(){
+        return this.getBalance()-super.getBalance();
+    }
+
     public int getDias() {
         return dias;
     }

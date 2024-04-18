@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  * Banco que almacena cuentas
- * @author Gabriel Pinto y Jorge Reyes
+ * @author Jorge Reyes
  */
 
 public class Bank {
@@ -69,17 +69,16 @@ public class Bank {
         Cliente cliente = null;
         for (Cliente client : clientes) {
             if(client.getCedula() == cedulaCliente){
-                if(!client.getApellidos().equalsIgnoreCase(apellidos) || !client.getNombres().equalsIgnoreCase(nombres)){
-                    throw new RuntimeException("Nombres o apellidos inválidos");                   
-                }
 
                 cliente = client;
             }
         }
 
-        if(cliente == null)
+        if(cliente == null){
             cliente = new Cliente(cedulaCliente, nombres, apellidos);
-        
+            clientes.add(cliente);
+        }
+
         cliente.añadirCuenta(cuenta);
         cuenta.setCliente(cliente);
     }
@@ -126,9 +125,9 @@ public class Bank {
         if(cliente == null){
             
             System.out.println("Ingrese sus nombres");
-            String nombres = sc.nextLine();
+            String nombres = sc.nextLine().trim();
             System.out.println("Ingrese sus apellidos");
-            String apellidos = sc.nextLine();
+            String apellidos = sc.nextLine().trim();
             
             cliente = new Cliente(cedulaCliente, nombres, apellidos);
             clientes.add(cliente);
@@ -201,14 +200,9 @@ public class Bank {
         if(cuenta instanceof MixedAccount){ //saldo MixedAccount Punto 1.
             MixedAccount acc = (MixedAccount)cuenta;
             System.out.println("Días: " + acc.getDias());
-            double saldoTotal = acc.getBalance();
 
-            for (int i = 0; i < acc.getDias(); i++) {
-                saldoTotal += saldoTotal*acc.getInteres();
-            }
-
-            System.out.println("Ganancia: " + (saldoTotal-acc.getBalance()));
-            return saldoTotal;
+            System.out.println("Ganancia: " + (acc.getGanancia()));
+            return acc.getBalance();
         }
 
         else return cuenta.getBalance();
