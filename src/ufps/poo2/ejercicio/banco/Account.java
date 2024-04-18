@@ -1,13 +1,22 @@
 package ufps.poo2.ejercicio.banco;
 
+import java.util.LinkedList;
+
 public class Account {
 
 	private double bal; // The current balance
 	private int accnum; // The account number
+	private Cliente cliente; //punto 2
 
 	public Account(int a) {
 		bal = 0.0;
 		accnum = a;
+	}
+
+	//punto 2
+	public Account(int a, Cliente cliente){ 
+		this(a);
+		this.cliente = cliente;
 	}
 
 	public void deposit(double sum) {
@@ -34,6 +43,20 @@ public class Account {
 
 	public String toString() {
 		return "Acc " + accnum + ": " + "balance = " + bal;
+	}
+
+	public Cliente getCliente(){
+		return this.cliente;
+	}
+
+	//punto 2
+	public void setCliente(Cliente cliente){
+		this.cliente = cliente;
+	}
+
+	//Método par el punto 4
+	public void setBalance(double val){
+
 	}
 
 	public final void print() {
