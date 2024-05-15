@@ -1,4 +1,4 @@
-package ufps.poo2.ejercicio.banco;
+package modelo;
 
 public class MixedAccount extends Account{
     private int dias;

@@ -1,4 +1,4 @@
-package ufps.poo2.ejercicio.banco;
+package modelo;
 /**
  * @author Gabriel Pinto - gabrielcamilopian@ufps.edu.co
  */

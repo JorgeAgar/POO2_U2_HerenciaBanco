@@ -1,7 +1,7 @@
-package ufps.poo2.ejercicio.banco;
+package modelo;
 
-public class Account {
-
+public class Account { 
+	
 	private double bal; // The current balance
 	private int accnum; // The account number
 	private Cliente cliente; //punto 2
@@ -64,3 +64,4 @@ public class Account {
 	}
 	
 }
+

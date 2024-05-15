@@ -1,4 +1,4 @@
-package ufps.poo2.ejercicio.banco;
+package modelo;
 
 /**
  * Una cuenta de ahorros con interés

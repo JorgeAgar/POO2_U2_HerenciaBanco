@@ -1,7 +1,8 @@
-package ufps.poo2.ejercicio.banco;
+package modelo;
 
 import java.util.LinkedList;
 import java.util.Scanner;
+import factories.*;
 
 /**
  * Banco que almacena cuentas
@@ -10,12 +11,20 @@ import java.util.Scanner;
 
 public class Bank {
 
+    private static Bank instance;
+
     private LinkedList<Account> accounts;
     private LinkedList<Cliente> clientes; //punto 3
 
-    public Bank(){
+    private Bank(){
         accounts = new LinkedList<>();
         clientes = new LinkedList<>();
+    }
+
+    public static Bank getInstance(){
+        if(instance == null)
+        	instance = new Bank();
+    	return instance;
     }
 
     /**
@@ -30,13 +39,12 @@ public class Bank {
         Account newAccount;
         switch (accType) {
             case 'A' -> {
-                newAccount = new SavingsAccount(accNumber);
+                AccountFactory factory = SavingsAccountFactory.getInstance();
+                newAccount = factory.createAccount(accNumber);
             }
             case 'C' -> {
-                newAccount = new CurrentAccount(accNumber);
-            }
-            case 'M' -> {
-                newAccount = new MixedAccount(accNumber);
+                AccountFactory factory = CurrentAccountFactory.getInstance();
+                newAccount = factory.createAccount(accNumber);
             }
             default -> {
                 throw new RuntimeException("Invalid account type");
